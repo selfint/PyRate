@@ -40,7 +40,7 @@ class SimilarityChecker:
                 max_percent = percent_fraction * 100
                 best_index = index
 
-        if best_index:
+        if best_index is not None:
             return self.actions[best_index]
         else:
             return None
@@ -91,7 +91,8 @@ class UserInterface:
             assert_not_exception_keyword(user_input)
 
             for checker in checkers:
-                if (option := checker.get_most_similar(user_input)) is not None:
+                option = checker.get_most_similar(user_input)
+                if option is not None:
                     return option
 
             self.stderr.send_output("didn't understand")

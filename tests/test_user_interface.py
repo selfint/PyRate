@@ -28,23 +28,25 @@ class TestableInterfaceDevice(InterfaceDevice):
         return self.last_output
 
 
+def helper_get_testable_user_interface(
+    stdin: List[str] = [], stdout: List[str] = [], stderr: List[str] = []
+):
+    return UserInterface(
+        TestableInterfaceDevice(stdin),
+        TestableInterfaceDevice(stdout),
+        TestableInterfaceDevice(stderr),
+    )
+
+
 class TestUserInterface(unittest.TestCase):
     def test_get_value_type_casting(self):
-        interface = UserInterface(
-            TestableInterfaceDevice(["5", "hello world"]),
-            TestableInterfaceDevice([]),
-            TestableInterfaceDevice([]),
-        )
+        interface = helper_get_testable_user_interface(["5", "hello world"])
 
         self.assertEqual(5, interface.get_value(int))
         self.assertEqual("hello world", interface.get_value(str))
 
     def test_get_value_exception(self):
-        interface = UserInterface(
-            TestableInterfaceDevice(["hello world", "5"]),
-            TestableInterfaceDevice([]),
-            TestableInterfaceDevice([]),
-        )
+        interface = helper_get_testable_user_interface(["hello world", "5"])
 
         value = interface.get_value(int)
 
@@ -53,6 +55,12 @@ class TestUserInterface(unittest.TestCase):
 
         # and that it calls the get input again
         self.assertEqual(5, value)
+
+    def test_get_similar(self):
+        interface = helper_get_testable_user_interface(["sum variables"])
+        self.assertEqual(
+            "sum numbers", interface.get_similar([["subtract"], ["sum numbers"]])
+        )
 
 
 if __name__ == "__main__":
