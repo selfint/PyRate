@@ -7,6 +7,7 @@ name = "pypi"
 gensim = "*"
 pyttsx3 = "*"
 speechrecognition = "*"
+pyaudio = "*"
 
 [dev-packages]
 black = "*"
