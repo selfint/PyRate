@@ -13,7 +13,7 @@ class SimilarityChecker:
     def __init__(self, options: List[str]):
         assert len(options) > 0, "must receive at least one option"
 
-        self.actions = options
+        self.options = options
         self.threshold = 0.9
 
         texts = [[word for word in option.lower().split()] for option in options]
@@ -41,7 +41,7 @@ class SimilarityChecker:
                 best_index = index
 
         if best_index is not None:
-            return self.actions[best_index]
+            return self.options[best_index]
         else:
             return None
 
