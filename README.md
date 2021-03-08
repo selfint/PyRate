@@ -1,6 +1,6 @@
-# PyRator
+# PyRate
 
-*Python-Orator*
+*Python-Orate*
 
 A voice controlled Python code editor. 
 
