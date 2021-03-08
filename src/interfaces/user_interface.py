@@ -54,6 +54,20 @@ class UserInterface:
         self.stdout = stdout
         self.stderr = stderr
 
+    def get_input(self):
+        """Get input from stdin"""
+        return self.stdin.get_input()
+
+    def send_output(self, msg: str):
+        """Send message to stdout"""
+
+        self.stdout.send_output(msg)
+
+    def send_error(self, msg: str):
+        """Send error message to stderr"""
+
+        self.stderr.send_output(msg)
+
     def get_value(self, value_type: SupportedInputValueType) -> SupportedInputValueType:
         """
         Get a typed value from the user, loops until a valid input is given.
