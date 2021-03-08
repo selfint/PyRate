@@ -49,7 +49,7 @@ class TestUserInterface(unittest.TestCase):
         value = interface.get_value(int)
 
         # make sure that user interface generates the correct error message
-        self.assertEqual("got an invalid int value", interface.stderr.get_output())
+        self.assertEqual("not a valid int value", interface.stderr.get_output())
 
         # and that it calls the get input again
         self.assertEqual(5, value)
