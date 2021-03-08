@@ -17,9 +17,11 @@ class UserInterface:
 
     def get_value(self, value_type: SupportedInputValueType) -> SupportedInputValueType:
         """
-        Get a typed value from the user
+        Get a typed value from the user, loops unitl a valid input is given.
 
-        Raises KeywordException - if user utters an exception keyword
+        :param value_type: Type of value to get
+        :raises KeywordException - if user utters an exception keyword
+        :return: Typed value
         """
 
         while True:
@@ -27,8 +29,6 @@ class UserInterface:
             assert_not_exception_keyword(value)
 
             try:
-                typed_value: SupportedInputValueType = value_type(value)
-
-                return typed_value
+                return value_type(value)
             except (TypeError, ValueError):
                 self.stderr.send_output(f"got an invalid {value_type.__name__} value")
