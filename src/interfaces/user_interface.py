@@ -50,23 +50,23 @@ class UserInterface:
     def __init__(
         self, stdin: InterfaceDevice, stdout: InterfaceDevice, stderr: InterfaceDevice
     ):
-        self.stdin = stdin
-        self.stdout = stdout
-        self.stderr = stderr
+        self._stdin = stdin
+        self._stdout = stdout
+        self._stderr = stderr
 
     def get_input(self):
         """Get input from stdin"""
-        return self.stdin.get_input()
+        return self._stdin.get_input()
 
     def send_output(self, msg: str):
         """Send message to stdout"""
 
-        self.stdout.send_output(msg)
+        self._stdout.send_output(msg)
 
     def send_error(self, msg: str):
         """Send error message to stderr"""
 
-        self.stderr.send_output(msg)
+        self._stderr.send_output(msg)
 
     def get_value(self, value_type: SupportedInputValueType) -> SupportedInputValueType:
         """
@@ -78,13 +78,13 @@ class UserInterface:
         """
 
         while True:
-            value = self.stdin.get_input()
+            value = self._stdin.get_input()
             assert_not_exception_keyword(value)
 
             try:
                 return value_type(value)
             except (TypeError, ValueError):
-                self.stderr.send_output(f"not a valid {value_type.__name__} value")
+                self._stderr.send_output(f"not a valid {value_type.__name__} value")
 
     def get_similar(self, ranked_options: List[List[str]]) -> str:
         """
@@ -101,7 +101,7 @@ class UserInterface:
         checkers = [SimilarityChecker(options) for options in ranked_options]
 
         while True:
-            user_input = self.stdin.get_input()
+            user_input = self._stdin.get_input()
             assert_not_exception_keyword(user_input)
 
             for checker in checkers:
@@ -109,4 +109,4 @@ class UserInterface:
                 if option is not None:
                     return option
 
-            self.stderr.send_output("didn't understand")
+            self._stderr.send_output("didn't understand")
