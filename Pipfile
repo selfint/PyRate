@@ -8,6 +8,8 @@ gensim = "*"
 pyttsx3 = "*"
 speechrecognition = "*"
 pyaudio = "*"
+transitions = "*"
+libcst = "*"
 
 [dev-packages]
 black = "*"
