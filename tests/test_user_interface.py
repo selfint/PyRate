@@ -10,7 +10,7 @@ class TestUserInterface(unittest.TestCase):
         self.assertEqual(5, interface.get_value(int))
         self.assertEqual("hello world", interface.get_value(str))
 
-    def test_get_value_exception(self):
+    def test_get_value_invalid_value_error_response(self):
         interface = helper_get_testable_user_interface(["hello world", "5"])
 
         value = interface.get_value(int)
