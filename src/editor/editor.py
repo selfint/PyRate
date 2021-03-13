@@ -9,11 +9,12 @@ class Editor:
         self._buffers = dict()
 
     def edit_file(self, file_path: Path) -> None:
-        """Read file text into a buffer."""
+        """Open a new buffer for file, if one doesn't already exist"""
 
         local_file_path = self._get_local_file_path(file_path)
 
-        self._buffers[local_file_path] = Buffer(local_file_path)
+        if local_file_path not in self._buffers:
+            self._buffers[local_file_path] = Buffer(local_file_path)
 
     def _get_local_file_path(self, file_path: Path) -> Path:
         """
