@@ -2,11 +2,7 @@ import unittest
 
 from src.editor.editor import Editor
 
-from pathlib import Path
-
-
-TEST_WORKING_DIRECTORY = Path("./test_temp_wd")
-TEST_TEMP_FILE = Path("test_editor_temp_file.py")
+from tests.constants import TEST_WORKING_DIRECTORY, TEST_TEMP_FILE
 
 
 class TestEditor(unittest.TestCase):
