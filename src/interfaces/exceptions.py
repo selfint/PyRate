@@ -22,6 +22,5 @@ ExceptionsKeywordsDict = {
 def assert_not_exception_keyword(value: str):
     """Raise KeywordException if value is an exception keyword"""
 
-    for keyword in ExceptionsKeywordsDict:
-        if value == keyword:
-            raise ExceptionsKeywordsDict[keyword]
+    if value in ExceptionsKeywordsDict:
+        raise ExceptionsKeywordsDict[value]()
