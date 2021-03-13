@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from src.editor.buffer import Buffer
+
 
 class Editor:
     def __init__(self, working_directory: Path):
@@ -11,7 +13,7 @@ class Editor:
 
         local_file_path = self._get_local_file_path(file_path)
 
-        self._buffers[local_file_path] = local_file_path.read_text()
+        self._buffers[local_file_path] = Buffer(local_file_path)
 
     def _get_local_file_path(self, file_path: Path) -> Path:
         """
