@@ -1,5 +1,6 @@
 import unittest
 
+from src.interfaces.exceptions import ExceptionsKeywordsDict
 from tests.helpers.testable_user_interface import helper_get_testable_user_interface
 
 
@@ -26,6 +27,18 @@ class TestUserInterface(unittest.TestCase):
         self.assertEqual(
             "sum numbers", interface.get_similar([["subtract"], ["sum numbers"]])
         )
+
+    def test_get_value_keyword_exceptions(self):
+        for keyword, exception in ExceptionsKeywordsDict.items():
+            interface = helper_get_testable_user_interface([keyword])
+            with self.assertRaises(exception):
+                interface.get_value(int)
+
+    def test_get_similar_keyword_exceptions(self):
+        for keyword, exception in ExceptionsKeywordsDict.items():
+            interface = helper_get_testable_user_interface([keyword])
+            with self.assertRaises(exception):
+                interface.get_similar([["cancel"], ["test"], ["quit"]])
 
 
 if __name__ == "__main__":
