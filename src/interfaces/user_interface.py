@@ -1,12 +1,9 @@
-from typing import TypeVar, List, Optional
+from typing import List, Optional, Type
 
 from src.interfaces.interface_device import InterfaceDevice
 from src.interfaces.exceptions import assert_not_exception_keyword
 
 from gensim import corpora, models, similarities
-
-
-SupportedInputValueType = TypeVar("SupportedInputValueType", int, str)
 
 
 class SimilarityChecker:
@@ -47,6 +44,8 @@ class SimilarityChecker:
 
 
 class UserInterface:
+    supported_value_types = [int, str]
+
     def __init__(
         self, stdin: InterfaceDevice, stdout: InterfaceDevice, stderr: InterfaceDevice
     ):
@@ -68,7 +67,7 @@ class UserInterface:
 
         self._stderr.send_output(msg)
 
-    def get_value(self, value_type: SupportedInputValueType) -> SupportedInputValueType:
+    def get_value(self, value_type: Type) -> object:
         """
         Get a typed value from the user, loops until a valid input is given.
 
@@ -76,6 +75,10 @@ class UserInterface:
         :raises KeywordException - if user utters an exception keyword
         :return: Typed value
         """
+
+        assert (
+            value_type in self.supported_value_types
+        ), f"unsupported value type {value_type}"
 
         while True:
             value = self._stdin.get_input()
