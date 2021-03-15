@@ -29,7 +29,7 @@ class TestableInterfaceDevice(InterfaceDevice):
 
 def helper_get_testable_user_interface(
     stdin: List[str] = [], stdout: List[str] = [], stderr: List[str] = []
-):
+) -> UserInterface:
     return UserInterface(
         TestableInterfaceDevice(stdin),
         TestableInterfaceDevice(stdout),
